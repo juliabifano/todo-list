@@ -8,7 +8,6 @@ export function Dialog({ isOpen, onClose, children }) {
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    console.log("Mostrar a modal", isOpen);
     if (isOpen) {
       openDialog();
     } else {
