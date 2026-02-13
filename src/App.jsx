@@ -12,11 +12,16 @@ import TodoContext from "./components/TodoProvider/TodoContext";
 import { TodoGroup } from "./components/TodoGroup";
 
 function App() {
-  const { todos, addTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo } = use(TodoContext);
+  const { todos, addTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo, editTodo } = use(TodoContext);
 
   const handleFormSubmit = (formData) => {
+    if (selectedTodo) {
+      editTodo(formData)
+    } else {
+      addTodo(formData)
+    }
     addTodo(formData);
-    openFormTodoDialog();
+    closeFormTodoDialog();
   };
 
   return (
