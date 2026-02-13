@@ -10,15 +10,24 @@ import { IconPlus, IconSchool } from "./components/icons";
 import { TodoForm } from "./components/TodoForm";
 import TodoContext from "./components/TodoProvider/TodoContext";
 import { TodoGroup } from "./components/TodoGroup";
+import { EmptyState } from "./components/EmptyState";
 
 function App() {
-  const { todos, addTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo, editTodo } = use(TodoContext);
+  const {
+    todos,
+    addTodo,
+    showDialog,
+    openFormTodoDialog,
+    closeFormTodoDialog,
+    selectedTodo,
+    editTodo,
+  } = use(TodoContext);
 
   const handleFormSubmit = (formData) => {
     if (selectedTodo) {
-      editTodo(formData)
+      editTodo(formData);
     } else {
-      addTodo(formData)
+      addTodo(formData);
     }
     addTodo(formData);
     closeFormTodoDialog();
@@ -37,15 +46,17 @@ function App() {
             heading="Para estudar"
             items={todos.filter((t) => !t.completed)}
           />
+          {todos.length === 0 && <EmptyState />}
           <TodoGroup
             heading="Concluído"
             items={todos.filter((t) => t.completed)}
           />
           <Footer>
             <Dialog isOpen={showDialog} onClose={closeFormTodoDialog}>
-              <TodoForm 
-              onSubmit={handleFormSubmit} 
-              defaultValue={selectedTodo?.description}/>
+              <TodoForm
+                onSubmit={handleFormSubmit}
+                defaultValue={selectedTodo?.description}
+              />
             </Dialog>
             <FabButton onClick={openFormTodoDialog}>
               <IconPlus />
